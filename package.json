@@ -27,11 +27,11 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-info": "^4.1.18",
     "@storybook/addon-knobs": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/addons": "^6.2.9",
-    "@storybook/react": "^6.2.9",
+    "@storybook/react": "^7.0.27",
     "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.23",
     "@types/react-router-dom": "^5.1.7",
