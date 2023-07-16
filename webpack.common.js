@@ -23,6 +23,7 @@ module.exports = (env) => {
             },
           ],
         },
+        // { test: /\.css$/, use: 'css-loader' },
         {
           test: /\.(svg|ttf|eot|woff|woff2)$/,
           // only process modules with this loader
@@ -130,7 +131,7 @@ module.exports = (env) => {
         silent: true,
       }),
       new CopyPlugin({
-        patterns: [{ from: './src/favicon.ico', to: 'images' }],
+        patterns: [{ from: './src/favicon.png', to: 'images' }],
       }),
     ],
     resolve: {

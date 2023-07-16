@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { Route, RouteComponentProps, Switch, useLocation } from 'react-router-dom';
-import { Dashboard } from '@app/Dashboard/Dashboard';
-import { Support } from '@app/Support/Support';
-import { GeneralSettings } from '@app/Settings/General/GeneralSettings';
-import { ProfileSettings } from '@app/Settings/Profile/ProfileSettings';
-import { NotFound } from '@app/NotFound/NotFound';
+import { NotFound } from '@app/pages/NotFound';
 import { useDocumentTitle } from '@app/utils/useDocumentTitle';
+import MetricsPage from '@app/pages/Metrics/MetricsPage';
+import DebugPage from '@app/pages/Debug/DebugPage';
 
 let routeFocusTimer: number;
 export interface IAppRoute {
@@ -28,37 +26,18 @@ export type AppRouteConfig = IAppRoute | IAppRouteGroup;
 
 const routes: AppRouteConfig[] = [
   {
-    component: Dashboard,
+    component: MetricsPage,
     exact: true,
-    label: 'Dashboard',
+    label: 'Metrics',
     path: '/',
-    title: 'TrustyAI | Main Dashboard',
+    title: 'Metrics | TrustyAI',
   },
   {
-    component: Support,
+    component: DebugPage,
     exact: true,
-    label: 'Support',
-    path: '/support',
-    title: 'TrustyAI | Support Page',
-  },
-  {
-    label: 'Settings',
-    routes: [
-      {
-        component: GeneralSettings,
-        exact: true,
-        label: 'General',
-        path: '/settings/general',
-        title: 'TrustyAI | General Settings',
-      },
-      {
-        component: ProfileSettings,
-        exact: true,
-        label: 'Profile',
-        path: '/settings/profile',
-        title: 'TrustyAI | Profile Settings',
-      },
-    ],
+    label: 'Debug data',
+    path: '/debug',
+    title: 'Debug | TrustyAI',
   },
 ];
 

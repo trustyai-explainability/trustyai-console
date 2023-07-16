@@ -11,7 +11,7 @@ import {
   SkipToContent,
 } from '@patternfly/react-core';
 import { routes, IAppRoute, IAppRouteGroup } from '@app/routes';
-import logo from '@app/bgimages/trustyai.svg';
+import logo from '@app/bgimages/trustyai_logo_hori_reverse.svg';
 
 interface IAppLayout {
   children: React.ReactNode;
@@ -36,7 +36,14 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
     function handleClick() {
       history.push('/');
     }
-    return <img src={logo} onClick={handleClick} alt="TrustyAI" />;
+    return (
+      <img
+        src={logo}
+        onClick={handleClick}
+        alt="TrustyAI"
+        style={{ height: '36px', width: 'auto', shapeRendering: 'crispEdges' }}
+      />
+    );
   }
 
   const Header = (

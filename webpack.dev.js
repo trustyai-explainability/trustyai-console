@@ -21,6 +21,18 @@ module.exports = merge(common('development'), {
     client: {
       overlay: true,
     },
+    proxy: {
+      '/p/trustyai': {
+        target: {
+          host: '127.0.0.1',
+          protocol: 'http:',
+          port: 8080,
+        },
+        pathRewrite: {
+          '^/p/trustyai': '',
+        },
+      },
+    },
   },
   module: {
     rules: [

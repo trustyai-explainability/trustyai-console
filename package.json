@@ -21,17 +21,9 @@
     "ci-checks": "npm run type-check && npm run lint && npm run test:coverage",
     "build:bundle-profile": "webpack --config webpack.prod.js --profile --json > stats.json",
     "bundle-profile:analyze": "npm run build:bundle-profile && webpack-bundle-analyzer ./stats.json",
-    "clean": "rimraf dist",
-    "storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook"
+    "clean": "rimraf dist"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-info": "^4.1.18",
-    "@storybook/addon-knobs": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/addons": "^6.2.9",
-    "@storybook/react": "^7.0.27",
     "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.23",
     "@types/react-router-dom": "^5.1.7",
@@ -40,7 +32,7 @@
     "@typescript-eslint/parser": "^4.26.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "copy-webpack-plugin": "^10.2.4",
-    "css-loader": "^5.2.6",
+    "css-loader": "^5.2.7",
     "css-minimizer-webpack-plugin": "^3.4.1",
     "dotenv-webpack": "^7.1.0",
     "enzyme": "^3.11.0",
@@ -81,9 +73,11 @@
     "@patternfly/react-core": "^4.181.1",
     "@patternfly/react-icons": "^4.32.1",
     "@patternfly/react-styles": "^4.31.1",
-    "@storybook/builder-webpack5": "^6.2.9",
+    "@patternfly/react-table": "^4.113.0",
+    "axios": "^1.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-json-pretty": "^2.2.0",
     "sirv-cli": "^1.0.12"
   }
 }
