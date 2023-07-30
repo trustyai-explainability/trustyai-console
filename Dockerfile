@@ -20,5 +20,6 @@ CMD ["nginx", "-g", "daemon off;"]
 
 LABEL io.k8s.display-name="trustyai-console" \
       name="alexcreasy/trustyai-console" \
+      version="0.1.0" \
       summary="trustyai-console" \
       description="TrustyAI web console"

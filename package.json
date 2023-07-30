@@ -1,6 +1,6 @@
 {
   "name": "trustyai-console",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Web console for TrustyAI service",
   "repository": "https://github.com/alexcreasy/trustyai-console.git",
   "homepage": "https://github.com/alexcreasy/trustyai-console",
