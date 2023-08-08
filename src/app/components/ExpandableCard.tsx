@@ -1,4 +1,4 @@
-import { Card, CardActions, CardExpandableContent, CardHeader, CardTitle } from '@patternfly/react-core';
+import { Card, CardExpandableContent, CardHeader, CardTitle } from '@patternfly/react-core';
 import React from 'react';
 
 type ExpandableCardProps = {
@@ -24,7 +24,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
 
   return (
     <Card id={id} isExpanded={isExpanded}>
-      <CardHeader
+      <CardHeader {...(actions && {actions: { actions: <>{actions}</>, hasNoOffset: false, className: undefined}})} 
         onExpand={() => setExpanded(!isExpanded)}
         isToggleRightAligned={isToggleRightAligned}
         toggleButtonProps={{
@@ -35,7 +35,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
         }}
       >
         {icon && icon}
-        {actions && <CardActions>{actions}</CardActions>}
+        
         <CardTitle id={cardTitleId}>{title}</CardTitle>
       </CardHeader>
       <CardExpandableContent>{children}</CardExpandableContent>

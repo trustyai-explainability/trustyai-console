@@ -1,4 +1,4 @@
-import { PageSection, Stack, StackItem } from '@patternfly/react-core';
+import { PageSection,  } from '@patternfly/react-core';
 import React from 'react';
 
 type PageContentProps = {

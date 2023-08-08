@@ -1,4 +1,4 @@
-import { TableComposable, Th, Thead, Tr } from '@patternfly/react-table';
+import { Table /* data-codemods */, Th, Thead, Tr } from '@patternfly/react-table';
 import React from 'react';
 import { BaseMetricResponse } from '@app/integrations/trustyai-service/api/types';
 import RequestTableRow from '@app/pages/Metrics/RequestTableRow';
@@ -17,7 +17,7 @@ const RequestsTable: React.FC<RequestsTableProps> = ({ requests }) => {
     );
   }
   return (
-    <TableComposable aria-label="Simple table">
+    <Table aria-label="Simple table">
       <Thead>
         <Tr>
           <Th />
@@ -33,7 +33,7 @@ const RequestsTable: React.FC<RequestsTableProps> = ({ requests }) => {
       {requests.map((r, i) => (
         <RequestTableRow key={r.id} request={r.request} rowIndex={i} />
       ))}
-    </TableComposable>
+    </Table>
   );
 };
 
