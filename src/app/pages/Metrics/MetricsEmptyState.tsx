@@ -1,11 +1,10 @@
 import React from 'react';
-import { EmptyState, EmptyStateBody, EmptyStateIcon } from '@patternfly/react-core';
+import { EmptyState, EmptyStateBody, EmptyStateIcon, EmptyStateHeader } from '@patternfly/react-core';
 import { CubesIcon } from '@patternfly/react-icons';
 
 const MetricsEmptyState: React.FC = () => (
   <EmptyState>
-    <EmptyStateIcon icon={CubesIcon} />
-    <EmptyStateBody>No metrics are configured for this model.</EmptyStateBody>
+    <EmptyStateHeader icon={<EmptyStateIcon icon={CubesIcon} />} /><EmptyStateBody>No metrics are configured for this model.</EmptyStateBody>
   </EmptyState>
 );
 

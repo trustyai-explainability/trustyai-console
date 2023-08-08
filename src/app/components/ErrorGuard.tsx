@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmptyState, EmptyStateBody, EmptyStateIcon, Title } from '@patternfly/react-core';
+import { EmptyState, EmptyStateBody, EmptyStateIcon, EmptyStateHeader,  } from '@patternfly/react-core';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 
 type ErrorGuardProps = {
@@ -10,10 +10,7 @@ const ErrorGuard: React.FC<ErrorGuardProps> = ({ children, error }) => {
   if (error) {
     return (
       <EmptyState variant="full">
-        <EmptyStateIcon icon={ExclamationTriangleIcon} />
-        <Title headingLevel="h4" size="lg">
-          Error
-        </Title>
+        <EmptyStateHeader titleText="Error" icon={<EmptyStateIcon icon={ExclamationTriangleIcon} />} headingLevel="h4" />
         <EmptyStateBody>{error?.message}</EmptyStateBody>
       </EmptyState>
     );

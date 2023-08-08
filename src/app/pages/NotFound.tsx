@@ -1,40 +1,40 @@
 import * as React from 'react';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
 import {
-  PageSection,
-  Title,
   Button,
   EmptyState,
-  EmptyStateIcon,
   EmptyStateBody,
+  EmptyStateFooter,
+  EmptyStateHeader,
+  EmptyStateIcon,
+  PageSection,
 } from '@patternfly/react-core';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const NotFound: React.FunctionComponent = () => {
   function GoHomeBtn() {
-    const history = useHistory();
+    const navigate = useNavigate();
     function handleClick() {
-      history.push('/');
+      navigate('/');
     }
-    return (
-      <Button onClick={handleClick}>Take me home</Button>
-    );
+    return <Button onClick={handleClick}>Take me home</Button>;
   }
 
   return (
     <PageSection>
-    <EmptyState variant="full">
-      <EmptyStateIcon icon={ExclamationTriangleIcon} />
-      <Title headingLevel="h1" size="lg">
-        404 Page not found
-      </Title>
-      <EmptyStateBody>
-        We didn&apos;t find a page that matches the address you navigated to.
-      </EmptyStateBody>
-      <GoHomeBtn />
-    </EmptyState>
-  </PageSection>
-  )
+      <EmptyState variant="full">
+        <EmptyStateHeader
+          titleText="404 Page not found"
+          icon={<EmptyStateIcon icon={ExclamationTriangleIcon} />}
+          headingLevel="h1"
+        />
+        <EmptyStateBody>We didn&apos;t find a page that matches the address you navigated to.</EmptyStateBody>
+        <EmptyStateFooter>
+          <GoHomeBtn />
+        </EmptyStateFooter>
+      </EmptyState>
+    </PageSection>
+  );
 };
 
 export { NotFound };

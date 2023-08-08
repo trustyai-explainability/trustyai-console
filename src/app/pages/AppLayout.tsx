@@ -1,26 +1,20 @@
+import { Nav, NavItem, NavList, Page, PageSidebar, PageSidebarBody, SkipToContent } from '@patternfly/react-core';
 import * as React from 'react';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
-import {
-  Nav,
-  NavList,
-  NavItem,
-  NavExpandable,
-  Page,
-  PageHeader,
-  PageSidebar,
-  SkipToContent,
-} from '@patternfly/react-core';
-import { routes, IAppRoute, IAppRouteGroup } from '@app/routes';
+import { PageHeader } from '@patternfly/react-core/deprecated';
 import logo from '@app/bgimages/trustyai_logo_hori_reverse.svg';
+import { NavLink, useLocation } from 'react-router-dom';
 
-interface IAppLayout {
+type AppLayoutProps = {
   children: React.ReactNode;
-}
+};
 
-const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
+const pageId = 'primary-app-container';
+const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const [isNavOpen, setIsNavOpen] = React.useState(true);
   const [isMobileView, setIsMobileView] = React.useState(true);
   const [isNavOpenMobile, setIsNavOpenMobile] = React.useState(false);
+
+  const location = useLocation();
   const onNavToggleMobile = () => {
     setIsNavOpenMobile(!isNavOpenMobile);
   };
@@ -30,67 +24,37 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
   const onPageResize = (props: { mobileView: boolean; windowSize: number }) => {
     setIsMobileView(props.mobileView);
   };
-
-  function LogoImg() {
-    const history = useHistory();
-    function handleClick() {
-      history.push('/');
-    }
-    return (
-      <img
-        src={logo}
-        onClick={handleClick}
-        alt="TrustyAI"
-        style={{ height: '36px', width: 'auto', shapeRendering: 'crispEdges' }}
-      />
-    );
-  }
-
-  const Header = (
+  const Header = () => (
     <PageHeader
-      logo={<LogoImg />}
+      logo={<img src={logo} alt="TrustyAI" style={{ height: '36px', width: 'auto' }} />}
       showNavToggle
       isNavOpen={isNavOpen}
       onNavToggle={isMobileView ? onNavToggleMobile : onNavToggle}
     />
   );
 
-  const location = useLocation();
-
-  const renderNavItem = (route: IAppRoute, index: number) => (
-    <NavItem key={`${route.label}-${index}`} id={`${route.label}-${index}`} isActive={route.path === location.pathname}>
-      <NavLink exact={route.exact} to={route.path}>
-        {route.label}
-      </NavLink>
-    </NavItem>
-  );
-
-  const renderNavGroup = (group: IAppRouteGroup, groupIndex: number) => (
-    <NavExpandable
-      key={`${group.label}-${groupIndex}`}
-      id={`${group.label}-${groupIndex}`}
-      title={group.label}
-      isActive={group.routes.some((route) => route.path === location.pathname)}
-    >
-      {group.routes.map((route, idx) => route.label && renderNavItem(route, idx))}
-    </NavExpandable>
-  );
-
-  const Navigation = (
+  const Navigation = () => (
     <Nav id="nav-primary-simple" theme="dark">
       <NavList id="nav-list-simple">
-        {routes.map(
-          (route, idx) => route.label && (!route.routes ? renderNavItem(route, idx) : renderNavGroup(route, idx))
-        )}
+        <NavItem id="nav-default-link0" to="/" itemId={0} isActive={'/' === location.pathname}>
+          <NavLink to="/">Metrics</NavLink>
+        </NavItem>
+        <NavItem id="nav-default-link1" itemId={1} isActive={'/debug' === location.pathname}>
+          <NavLink to="/debug">Debug data</NavLink>
+        </NavItem>
       </NavList>
     </Nav>
   );
 
-  const Sidebar = <PageSidebar theme="dark" nav={Navigation} isNavOpen={isMobileView ? isNavOpenMobile : isNavOpen} />;
+  const Sidebar = () => (
+    <PageSidebar theme="dark" isSidebarOpen={isMobileView ? isNavOpenMobile : isNavOpen}>
+      <PageSidebarBody>
+        <Navigation />
+      </PageSidebarBody>
+    </PageSidebar>
+  );
 
-  const pageId = 'primary-app-container';
-
-  const PageSkipToContent = (
+  const PageSkipToContent = () => (
     <SkipToContent
       onClick={(event) => {
         event.preventDefault();
@@ -102,17 +66,18 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
       Skip to Content
     </SkipToContent>
   );
+
   return (
     <Page
       mainContainerId={pageId}
-      header={Header}
-      sidebar={Sidebar}
-      onPageResize={onPageResize}
-      skipToContent={PageSkipToContent}
+      header={<Header />}
+      sidebar={<Sidebar />}
+      onPageResize={(_event, props: { mobileView: boolean; windowSize: number }) => onPageResize(props)}
+      skipToContent={<PageSkipToContent />}
     >
       {children}
     </Page>
   );
 };
 
-export { AppLayout };
+export default AppLayout;

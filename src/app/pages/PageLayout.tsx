@@ -10,7 +10,7 @@ import {
   SplitItem,
   Stack,
   TextContent,
-  Title,
+  Title, EmptyStateHeader,
 } from '@patternfly/react-core';
 import React from 'react';
 import { ExclamationTriangleIcon } from '@patternfly/react-icons';
@@ -28,10 +28,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, loaded, error 
       <PageSection variant={PageSectionVariants.light}>
         <Bullseye>
           <EmptyState>
-            <EmptyStateIcon variant="container" component={Spinner} />
-            <Title size="lg" headingLevel="h4">
-              Loading
-            </Title>
+            <EmptyStateHeader titleText="Loading" icon={<EmptyStateIcon  icon={Spinner} />} headingLevel="h4" />
           </EmptyState>
         </Bullseye>
       </PageSection>
@@ -44,10 +41,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, loaded, error 
         <PageSection>
           <Bullseye>
             <EmptyState variant="full">
-              <EmptyStateIcon icon={ExclamationTriangleIcon} />
-              <Title headingLevel="h1" size="lg">
-                Error loading content
-              </Title>
+              <EmptyStateHeader titleText="Error loading content" icon={<EmptyStateIcon icon={ExclamationTriangleIcon} />} headingLevel="h1" />
               <EmptyStateBody>{error?.message}</EmptyStateBody>
             </EmptyState>
           </Bullseye>
