@@ -15,6 +15,8 @@ COPY --from=build-stage /usr/src/app/dist/ /opt/app-root/src
 COPY --from=build-stage /usr/src/app/nginx.conf "$NGINX_CONF_PATH"
 
 ENV TRUSTYAI_URL="http://trustyai-service:8080"
+ENV GRAFANA_URL="http://grafana:3000"
+
 
 CMD ["nginx", "-g", "daemon off;"]
 

@@ -40,6 +40,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <NavItem id="nav-default-link0" to="/" itemId={0} isActive={'/' === location.pathname}>
           <NavLink to="/">Metrics</NavLink>
         </NavItem>
+        <NavItem id="nav-default-link1" itemId={1} isActive={'/charts' === location.pathname}>
+          <NavLink to="/charts">Charts</NavLink>
+        </NavItem>
       </NavList>
     </Nav>
   );

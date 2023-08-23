@@ -7,6 +7,7 @@ import { Routes } from 'react-router';
 import MetricsPage from '@app/pages/Metrics/MetricsPage';
 import DebugPage from '@app/pages/Debug/DebugPage';
 import { GlobalContextProvider } from '@app/GlobalContext';
+import ChartsPage from '@app/pages/Charts/ChartsPage';
 
 const App: React.FC = () => (
   <GlobalContextProvider>
@@ -15,6 +16,7 @@ const App: React.FC = () => (
         <Routes>
           <Route path="/" element={<MetricsPage />} />
           <Route path="debug/*" element={<DebugPage />} />
+          <Route path="charts/*" element={<ChartsPage />} />
         </Routes>
       </AppLayout>
     </Router>
