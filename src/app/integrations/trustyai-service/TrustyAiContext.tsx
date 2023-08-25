@@ -7,6 +7,12 @@ import { useGetAllRequests, useGetModelMetadata } from '@app/integrations/trusty
 type TrustyAiContextProps = {
   requests: ResponseWrapper<BaseMetricResponse[]>;
   info: ResponseWrapper<ModelMetaData[]>;
+  modelIds: string[];
+  activeModelId: string | null;
+  setActiveModelId: React.Dispatch<React.SetStateAction<string | null>>;
+  activeModel: ModelMetaData | null;
+  getModelById: (id: string) => ModelMetaData;
+  requestsForActiveModel: BaseMetricResponse[];
   refresh: () => void;
   loaded: boolean;
   errors: Error[];
@@ -25,20 +31,25 @@ const createEmptyResponseWrapper = <T,>(data: T): ResponseWrapper<T> => {
   };
 };
 
-const TrustyAiContext = React.createContext<TrustyAiContextProps>({
+export const TrustyAiContext = React.createContext<TrustyAiContextProps>({
   requests: createEmptyResponseWrapper([]),
   info: createEmptyResponseWrapper([]),
+  modelIds: [],
+  activeModelId: null,
+  setActiveModelId: noop,
+  activeModel: null,
+  getModelById: () => undefined as unknown as ModelMetaData,
+  requestsForActiveModel: [],
   refresh: noop,
   loaded: false,
   errors: [],
 });
 
 export const TrustyAiContextProvider: React.FC<TrustyAiContextProviderProps> = ({ children }) => {
-  // const { data: requestData, loaded: requestsDataLoaded, error: requestsError, refresh: refreshRequests } = useGetAllRequests();
-  // const { data: infoData, loaded: infoLoaded, error: infoError, refresh: refreshInfo } = useGetModelMetadata();
-
   const requestsWrapper = useGetAllRequests();
   const info = useGetModelMetadata();
+
+  const [activeModelId, setActiveModelId] = React.useState<string | null>(null);
 
   const requests = React.useMemo(() => {
     return {
@@ -68,11 +79,58 @@ export const TrustyAiContextProvider: React.FC<TrustyAiContextProviderProps> = (
     return retVal;
   }, [info.error, requestsWrapper.error]);
 
+  const modelIds = React.useMemo(() => {
+    if (info.loaded) {
+      return info.data.map((modelDef) => modelDef.data.modelId);
+    } else {
+      return [];
+    }
+  }, [info.data, info.loaded]);
+
+  const getModelById = React.useCallback(
+    (id: string) => {
+      const modelVal = info.data.find((m) => m.data.modelId === id);
+      if (!modelVal) {
+        // This shouldn't happen, there's an error in your code if you see this.
+        throw new Error(`No such model with id: ${id}`);
+      }
+      return modelVal;
+    },
+    [info.data],
+  );
+
+  // Automatically set an active model if the user has not yet selected one.
+  React.useEffect(() => {
+    if (!activeModelId && modelIds.length > 0) {
+      setActiveModelId(modelIds[0]);
+    }
+  }, [activeModelId, modelIds]);
+
+  const requestsForActiveModel = React.useMemo(() => {
+    if (!requests.loaded || !activeModelId) {
+      return [];
+    }
+    return requests.data.filter((r) => r.request.modelId === activeModelId);
+  }, [activeModelId, requests.data, requests.loaded]);
+
+  const activeModel = React.useMemo(() => {
+    if (!activeModelId) {
+      return null;
+    }
+    return getModelById(activeModelId);
+  }, [activeModelId, getModelById]);
+
   return (
     <TrustyAiContext.Provider
       value={{
         requests,
         info,
+        modelIds,
+        activeModelId,
+        setActiveModelId,
+        activeModel,
+        getModelById,
+        requestsForActiveModel,
         refresh,
         loaded,
         errors,

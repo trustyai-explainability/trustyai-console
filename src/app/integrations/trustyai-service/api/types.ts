@@ -23,8 +23,10 @@ export type Schema = {
 export type ModelMetaData = {
   metrics: {
     scheduledMetadata: {
-      spd: number;
-      dir: number;
+      metricCounts: {
+        SPD: number;
+        DIR: number;
+      };
     };
   };
   data: {
