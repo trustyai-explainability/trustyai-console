@@ -39,9 +39,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <NavItem id="nav-default-link0" to="/" itemId={0} isActive={'/' === location.pathname}>
           <NavLink to="/">Metrics</NavLink>
         </NavItem>
-        <NavItem id="nav-default-link1" itemId={1} isActive={'/debug' === location.pathname}>
-          <NavLink to="/debug">Debug data</NavLink>
-        </NavItem>
       </NavList>
     </Nav>
   );
