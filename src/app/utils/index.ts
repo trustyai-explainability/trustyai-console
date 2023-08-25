@@ -6,3 +6,5 @@ export const byId =
     }
     return arg2.id === arg;
   };
+
+export const noop = () => undefined;
