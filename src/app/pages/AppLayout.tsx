@@ -3,6 +3,7 @@ import * as React from 'react';
 import { PageHeader } from '@patternfly/react-core/deprecated';
 import logo from '@app/bgimages/trustyai_logo_hori_reverse.svg';
 import { NavLink, useLocation } from 'react-router-dom';
+import { TrustyAiContextProvider } from '@app/integrations/trustyai-service/TrustyAiContext';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -39,9 +40,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <NavItem id="nav-default-link0" to="/" itemId={0} isActive={'/' === location.pathname}>
           <NavLink to="/">Metrics</NavLink>
         </NavItem>
-        <NavItem id="nav-default-link1" itemId={1} isActive={'/debug' === location.pathname}>
-          <NavLink to="/debug">Debug data</NavLink>
-        </NavItem>
       </NavList>
     </Nav>
   );
@@ -75,7 +73,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       onPageResize={(_event, props: { mobileView: boolean; windowSize: number }) => onPageResize(props)}
       skipToContent={<PageSkipToContent />}
     >
-      {children}
+      <TrustyAiContextProvider>{children}</TrustyAiContextProvider>
     </Page>
   );
 };

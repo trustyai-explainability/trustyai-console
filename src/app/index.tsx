@@ -6,16 +6,19 @@ import AppLayout from '@app/pages/AppLayout';
 import { Routes } from 'react-router';
 import MetricsPage from '@app/pages/Metrics/MetricsPage';
 import DebugPage from '@app/pages/Debug/DebugPage';
+import { GlobalContextProvider } from '@app/GlobalContext';
 
-const App: React.FunctionComponent = () => (
-  <Router>
-    <AppLayout>
-      <Routes>
-        <Route path="/" element={<MetricsPage />} />
-        <Route path="debug/*" element={<DebugPage />} />
-      </Routes>
-    </AppLayout>
-  </Router>
+const App: React.FC = () => (
+  <GlobalContextProvider>
+    <Router>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<MetricsPage />} />
+          <Route path="debug/*" element={<DebugPage />} />
+        </Routes>
+      </AppLayout>
+    </Router>
+  </GlobalContextProvider>
 );
 
 export default App;

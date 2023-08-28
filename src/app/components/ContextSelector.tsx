@@ -39,6 +39,7 @@ type ContextSelectorProps = {
   label?: string;
   variant?: ContextSelectorVariants;
   footer?: React.ReactNode;
+  isDisabled?: boolean;
 };
 const ContextSelector: React.FC<ContextSelectorProps> = ({
   items,
@@ -46,6 +47,7 @@ const ContextSelector: React.FC<ContextSelectorProps> = ({
   label,
   variant = ContextSelectorVariants.DEFAULT,
   footer,
+  isDisabled = false,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [selected, setSelected] = React.useState(typeof items[0] === 'string' ? items[0] : items[0].text);
@@ -114,6 +116,7 @@ const ContextSelector: React.FC<ContextSelectorProps> = ({
                 onChange={(_event, value) => onSearchInputChange(value)}
                 onKeyPress={onEnterPressed}
                 aria-labelledby="pf-v5-context-selector-search-button-id-1"
+                isDisabled={isDisabled}
               />
             </InputGroupItem>
             <InputGroupItem>
