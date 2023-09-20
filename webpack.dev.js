@@ -22,14 +22,21 @@ module.exports = merge(common('development'), {
       overlay: true,
     },
     proxy: {
-      '/p/trustyai': {
+      '/trustyai': {
         target: {
           host: '127.0.0.1',
           protocol: 'http:',
           port: 8080,
         },
         pathRewrite: {
-          '^/p/trustyai': '',
+          '^/trustyai': '',
+        },
+      },
+      '/grafana': {
+        target: {
+          host: '127.0.0.1',
+          protocol: 'http:',
+          port: 3000,
         },
       },
     },
